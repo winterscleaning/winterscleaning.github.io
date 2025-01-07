@@ -32,26 +32,30 @@
             font-size: 16px;
             cursor: pointer;
         }
-        #control-panel, #login-log {
+        #control-panel {
             position: fixed;
             bottom: 10px;
+            left: 10px;
             display: grid;
+            grid-template-columns: repeat(4, 50px);
             gap: 10px;
             border: 2px solid #007bff;
             padding: 10px;
             background-color: #d3d3d3; /* Light grey background */
             border-radius: 5px;
         }
-        #control-panel {
-            left: 10px;
-            grid-template-columns: repeat(4, 50px);
-        }
         #login-log {
-            left: 300px;
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
             width: 300px;
             font-size: 12px;
             overflow-y: auto;
             max-height: 150px;
+            border: 2px solid #007bff;
+            padding: 10px;
+            background-color: #d3d3d3; /* Light grey background */
+            border-radius: 5px;
         }
         #control-panel a {
             width: 50px;
@@ -70,14 +74,14 @@
         #version {
             position: fixed;
             bottom: 10px;
-            right: 10px;
+            right: 320px;
             font-size: 12px;
             color: #666;
         }
     </style>
     <script>
         let attempts = 0;
-        let currentHashedPassword = '5246272819cf9d3f50bdf7d03ac84ed65e5604ae8b4cd831e027813a258e03fc'; // Precomputed hash for "5800"
+        let currentHashedPassword = '5246272819cf9d3f50bdf7d03ac84ed65e5604ae8b4cd831e027813a258e03fc'; // Correct hash for "5800"
 
         async function hashPassword(password) {
             const encoder = new TextEncoder();
@@ -90,16 +94,25 @@
 
         function logLogin(success) {
             const logContainer = document.getElementById('login-log');
-            const logEntry = document.createElement('div');
             const now = new Date();
 
-            // Gather additional details
-            const browser = navigator.userAgent;
-            const deviceType = /Mobi|Android/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop';
+            // Create new log entry
+            const logEntry = `${now.toLocaleString()} - Login ${success ? 'successful' : 'failed'}`;
 
-            // Format the log entry
-            logEntry.textContent = `${now.toLocaleString()} - Login ${success ? 'successful' : 'failed'} - Browser: ${browser} - Device: ${deviceType}`;
-            logContainer.appendChild(logEntry);
+            // Add new log entry to the top of the log
+            let logEntries = Array.from(logContainer.querySelectorAll('div'));
+            logEntries.unshift(logEntry);
+
+            // Limit to last 5 entries
+            logEntries = logEntries.slice(0, 5);
+
+            // Update the log container
+            logContainer.innerHTML = '<strong>Login Log:</strong>';
+            logEntries.forEach(entry => {
+                const div = document.createElement('div');
+                div.textContent = entry;
+                logContainer.appendChild(div);
+            });
         }
 
         async function checkPassword(event) {
@@ -155,11 +168,11 @@
                 <button type="submit">Change Password</button>
             </form>
         </div>
-        <div id="version">Version: 1.04.5</div>
+        <div id="version">Version: 1.04.6</div>
     </div>
     <div id="protected-content">
-        <h1>Winters Cleaning</h1>
-        <p>Website Backpage</p>
+        <h1>Hello, World!</h1>
+        <p>Welcome to the password-protected website.</p>
         <div id="control-panel">
             <a href="https://www.winters-cleaning.com" target="_blank">Main</a>
             <a href="https://www.winters-cleaning.com/thankyou" target="_blank">TY</a>
