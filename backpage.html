@@ -96,11 +96,15 @@
             const logContainer = document.getElementById('login-log');
             const now = new Date();
 
-            // Create new log entry
-            const logEntry = `${now.toLocaleString()} - Login ${success ? 'successful' : 'failed'}`;
+            // Gather additional details
+            const browser = navigator.userAgent;
+            const deviceType = /Mobi|Android/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop';
+
+            // Create detailed log entry
+            const logEntry = `${now.toLocaleString()} - Login ${success ? 'successful' : 'failed'} - Browser: ${browser} - Device: ${deviceType}`;
 
             // Add new log entry to the top of the log
-            let logEntries = Array.from(logContainer.querySelectorAll('div'));
+            let logEntries = Array.from(logContainer.querySelectorAll('div')).map(div => div.textContent);
             logEntries.unshift(logEntry);
 
             // Limit to last 5 entries
@@ -168,7 +172,7 @@
                 <button type="submit">Change Password</button>
             </form>
         </div>
-        <div id="version">Version: 1.04.7</div>
+        <div id="version">Version: 1.04.8</div>
     </div>
     <div id="protected-content">
         <h1>Winters Cleaning</h1>
