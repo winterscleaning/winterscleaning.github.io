@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Protected Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        #protected-content {
+            display: none;
+            text-align: center;
+        }
+        #password-form {
+            text-align: center;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+            const correctPassword = "1234"; // Replace with your desired 4-digit password
+            if (password === correctPassword) {
+                document.getElementById('password-form').style.display = 'none';
+                document.getElementById('protected-content').style.display = 'block';
+            } else {
+                alert('Incorrect password. Please try again.');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="password-form">
+        <h1>Enter Password</h1>
+        <input type="password" id="password" maxlength="4" placeholder="4-digit password">
+        <button onclick="checkPassword()">Submit</button>
+    </div>
+    <div id="protected-content">
+        <h1>Hello, World!</h1>
+        <p>Welcome to the password-protected website.</p>
+    </div>
+</body>
+</html>
