@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,11 +30,33 @@
             font-size: 16px;
             cursor: pointer;
         }
+        #control-panel {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            display: grid;
+            grid-template-columns: repeat(4, 50px);
+            gap: 10px;
+        }
+        #control-panel a {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 5px;
+            text-align: center;
+        }
     </style>
     <script>
         function checkPassword() {
             const password = document.getElementById('password').value;
-            const correctPassword = "5800"; // Replace with your desired 4-digit password
+            const correctPassword = "1234"; // Replace with your desired 4-digit password
             if (password === correctPassword) {
                 document.getElementById('password-form').style.display = 'none';
                 document.getElementById('protected-content').style.display = 'block';
@@ -54,6 +75,16 @@
     <div id="protected-content">
         <h1>Hello, World!</h1>
         <p>Welcome to the password-protected website.</p>
+    </div>
+    <div id="control-panel">
+        <a href="https://www.winters-cleaning.com">1</a>
+        <a href="https://www.winters-cleaning.com/thankyou">2</a>
+        <a href="https://www.winters-cleaning.com">3</a>
+        <a href="https://www.winters-cleaning.com">4</a>
+        <a href="https://www.winters-cleaning.com">5</a>
+        <a href="https://www.winters-cleaning.com">6</a>
+        <a href="https://www.winters-cleaning.com">7</a>
+        <a href="https://www.winters-cleaning.com">8</a>
     </div>
 </body>
 </html>
