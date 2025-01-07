@@ -32,17 +32,26 @@
             font-size: 16px;
             cursor: pointer;
         }
-        #control-panel {
+        #control-panel, #login-log {
             position: fixed;
             bottom: 10px;
-            left: 10px;
             display: grid;
-            grid-template-columns: repeat(4, 50px);
             gap: 10px;
             border: 2px solid #007bff;
             padding: 10px;
             background-color: #d3d3d3; /* Light grey background */
             border-radius: 5px;
+        }
+        #control-panel {
+            left: 10px;
+            grid-template-columns: repeat(4, 50px);
+        }
+        #login-log {
+            left: 300px;
+            width: 300px;
+            font-size: 12px;
+            overflow-y: auto;
+            max-height: 150px;
         }
         #control-panel a {
             width: 50px;
@@ -67,54 +76,102 @@
         }
     </style>
     <script>
-        function checkPassword() {
-            const password = document.getElementById('password').value;
-            const correctPassword = "5800"; // Replace with your desired 4-digit password
-            if (password === correctPassword) {
+        let attempts = 0;
+        let currentHashedPassword = 'd077f244def8a70e5ea758bd8352fcd8'; // Precomputed hash for "5800"
+
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hash = await crypto.subtle.digest('SHA-256', data);
+            return Array.from(new Uint8Array(hash))
+                .map(b => b.toString(16).padStart(2, '0'))
+                .join('');
+        }
+
+        function logLogin(success) {
+            const logContainer = document.getElementById('login-log');
+            const logEntry = document.createElement('div');
+            const now = new Date();
+
+            // Gather additional details
+            const browser = navigator.userAgent;
+            const deviceType = /Mobi|Android/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop';
+
+            // Format the log entry
+            logEntry.textContent = `${now.toLocaleString()} - Login ${success ? 'successful' : 'failed'} - Browser: ${browser} - Device: ${deviceType}`;
+            logContainer.appendChild(logEntry);
+        }
+
+        async function checkPassword(event) {
+            event.preventDefault(); // Prevent form reload
+            if (attempts >= 5) {
+                alert('Too many failed attempts. Please try again later.');
+                return;
+            }
+
+            const inputPassword = document.getElementById('password').value;
+            const hashedInput = await hashPassword(inputPassword);
+
+            if (hashedInput === currentHashedPassword) {
                 document.getElementById('password-form').style.display = 'none';
                 document.getElementById('protected-content').style.display = 'block';
+                logLogin(true);
             } else {
-                alert('Incorrect password. Please try again.');
+                attempts++;
+                alert('Incorrect password.');
+                logLogin(false);
             }
         }
 
-        function isLocked() {
-            return document.getElementById('protected-content').style.display !== 'block';
-        }
+        async function changePassword(event) {
+            event.preventDefault();
+            const oldPassword = document.getElementById('old-password').value;
+            const newPassword = document.getElementById('new-password').value;
 
-        window.onload = function () {
-            const links = document.querySelectorAll('#control-panel a');
-            links.forEach(link => {
-                link.addEventListener('click', (event) => {
-                    if (isLocked()) {
-                        event.preventDefault();
-                        alert('Please enter the password to unlock the site.');
-                    }
-                });
-            });
-        };
+            const hashedOldPassword = await hashPassword(oldPassword);
+
+            if (hashedOldPassword === currentHashedPassword) {
+                currentHashedPassword = await hashPassword(newPassword);
+                alert('Password changed successfully!');
+                document.getElementById('change-password-form').reset();
+            } else {
+                alert('Old password is incorrect.');
+            }
+        }
     </script>
 </head>
 <body>
     <div id="password-form">
         <h1>Enter Password</h1>
-        <input type="password" id="password" maxlength="4" placeholder="4-digit password">
-        <button onclick="checkPassword()">Submit</button>
-        <div id="version">Version: 1.03</div>
+        <form onsubmit="checkPassword(event)">
+            <input type="password" id="password" maxlength="20" placeholder="Enter your password">
+            <button type="submit">Submit</button>
+        </form>
+        <button onclick="document.getElementById('change-password-section').style.display = 'block'">Change Password</button>
+        <div id="change-password-section" style="display: none; margin-top: 20px;">
+            <form id="change-password-form" onsubmit="changePassword(event)">
+                <input type="password" id="old-password" maxlength="20" placeholder="Old password" required>
+                <input type="password" id="new-password" maxlength="20" placeholder="New password" required>
+                <button type="submit">Change Password</button>
+            </form>
+        </div>
+        <div id="version">Version: 1.04</div>
     </div>
     <div id="protected-content">
         <h1>Winters Cleaning</h1>
-        <h1>Website Backpage</h1>
-        
+        <p>Website Backpage</p>
         <div id="control-panel">
             <a href="https://www.winters-cleaning.com" target="_blank">Main</a>
             <a href="https://www.winters-cleaning.com/thankyou" target="_blank">TY</a>
-            <a href="https://www.winters-cleaning.com/backpage" target="_blank">Bpage</a>
+            <a href="https://www.winters-cleaning.com/mypage" target="_blank">mypage</a>
             <a href="https://www.winters-cleaning.com" target="_blank">4</a>
             <a href="https://www.winters-cleaning.com" target="_blank">5</a>
             <a href="https://www.winters-cleaning.com" target="_blank">6</a>
             <a href="https://www.winters-cleaning.com" target="_blank">7</a>
             <a href="https://www.winters-cleaning.com" target="_blank">8</a>
+        </div>
+        <div id="login-log">
+            <strong>Login Log:</strong>
         </div>
     </div>
 </body>
