@@ -51,7 +51,7 @@
             width: 300px;
             font-size: 12px;
             overflow-y: auto;
-            max-height: 150px;
+            max-height: 400px;
             border: 2px solid #007bff;
             padding: 10px;
             background-color: #d3d3d3; /* Light grey background */
@@ -104,19 +104,9 @@
             const logEntry = `${now.toLocaleString()} - Login ${success ? 'successful' : 'failed'} - Browser: ${browser} - Device: ${deviceType}`;
 
             // Add new log entry to the top of the log
-            let logEntries = Array.from(logContainer.querySelectorAll('div')).map(div => div.textContent);
-            logEntries.unshift(logEntry);
-
-            // Limit to last 5 entries
-            logEntries = logEntries.slice(0, 5);
-
-            // Update the log container
-            logContainer.innerHTML = '<strong>Login Log:</strong>';
-            logEntries.forEach(entry => {
-                const div = document.createElement('div');
-                div.textContent = entry;
-                logContainer.appendChild(div);
-            });
+            const div = document.createElement('div');
+            div.textContent = logEntry;
+            logContainer.prepend(div);
         }
 
         async function checkPassword(event) {
@@ -172,7 +162,7 @@
                 <button type="submit">Change Password</button>
             </form>
         </div>
-        <div id="version">Version: 1.04.8</div>
+        <div id="version">Version: 1.04.9</div>
     </div>
     <div id="protected-content">
         <h1>Winters Cleaning</h1>
