@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-11544264307">
-</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-11544264307"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -16,10 +15,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Winters Cleaning</title>
     <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             background-color: #f9f9f9;
         }
         header {
@@ -59,6 +62,7 @@
         }
         section {
             padding: 20px;
+            flex-grow: 1; /* Ensures content area grows to push footer to the bottom */
         }
         .services {
             display: flex;
@@ -107,7 +111,7 @@
             color: white;
             text-align: center;
             padding: 10px;
-            margin-top: 20px;
+            margin-top: auto; /* Pushes footer to the bottom of the page */
         }
     </style>
 </head>
