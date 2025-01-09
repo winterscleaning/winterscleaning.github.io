@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 - Page Not Found</title>
     <style>
-        body {
+        html, body {
             font-family: Arial, sans-serif;
+            height: 100%;
             margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
         }
         header {
             background-color: #004080;
@@ -33,6 +34,7 @@
         section {
             padding: 20px;
             text-align: center;
+            flex-grow: 1; /* Ensures the main content expands to fill space */
         }
         section h2 {
             color: #000000;
@@ -47,7 +49,7 @@
             color: white;
             text-align: center;
             padding: 10px;
-            margin-top: 20px;
+            margin-top: auto; /* Ensures the footer stays at the bottom */
         }
     </style>
 </head>
