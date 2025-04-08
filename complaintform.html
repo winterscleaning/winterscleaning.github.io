@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Submit a Complaint - Winters Cleaning</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+    }
+    header {
+      background-color: #004080;
+      color: white;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+    }
+    header img {
+      height: 60px;
+      margin-right: 20px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.8em;
+    }
+    header p {
+      margin: 5px 0 0;
+      font-size: 1em;
+    }
+    section {
+      padding: 20px;
+      flex-grow: 1;
+    }
+    .form-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      border: 2px solid #004080;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    .form-container h2 {
+      text-align: center;
+      color: #004080;
+      margin-top: 0;
+    }
+    .form-container p.intro {
+      text-align: center;
+      font-style: italic;
+      color: #333;
+      margin-bottom: 30px;
+    }
+    form label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #333;
+    }
+    form input,
+    form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-family: Arial, sans-serif;
+    }
+    form input::placeholder,
+    form textarea::placeholder {
+      font-family: Arial, sans-serif;
+      font-size: 1rem;
+      color: #777;
+    }
+    form textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    button {
+      background-color: #004080;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #002244;
+    }
+    footer {
+      background-color: #004080;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="logo.png" alt="Winters Cleaning Services Logo">
+  <div>
+    <h1>Winters Cleaning</h1>
+    <p>Providing Industrial, Commercial, and Fleet Cleaning Services in Grand Rapids, Michigan</p>
+  </div>
+</header>
+
+<section>
+  <div class="form-container">
+    <h2>Submit a Complaint</h2>
+    <p class="intro">
+      We value your feedback. Every concern or complaint shared helps us enhance our service quality, ensure accountability, and better meet the needs of those we serve. Thank you for taking the time to help us improve.
+    </p>
+    <form action="https://formspree.io/f/yourformid" method="POST">
+      <label for="name">Name / Office Location (Optional)</label>
+      <input type="text" id="name" name="Name or Office Location" placeholder="e.g., John Doe / Office 123">
+
+      <label for="against">Complaint Against (Optional)</label>
+      <input type="text" id="against" name="Complaint Against" placeholder="Person or department (if any)">
+
+      <label for="company">Company Name</label>
+      <input type="text" id="company" name="Company Name" required placeholder="Company Name">
+
+      <label for="description">Description of Complaint</label>
+      <textarea id="description" name="Description" required placeholder="Please describe the issue in detail..."></textarea>
+
+      <button type="submit">Submit Complaint</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2025 Winters Cleaning LLC. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
